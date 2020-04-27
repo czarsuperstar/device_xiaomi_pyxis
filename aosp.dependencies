@@ -1,0 +1,20 @@
+[
+  {
+    "remote":      "github"
+    "repository":  "TheMalachite/IceCream_kernel",
+    "target_path": "kernel/xiaomi/sdm710",
+    "branch":      "pyxis-vela"
+  },
+  {
+    "remote":      "github",
+    "repository":  "xiaomi-pyxis/android_vendor_xiaomi_pyxis",
+    "target_path": "vendor/xiaomi/pyxis",
+    "branch":      "master"
+  },
+  {
+    "remote":      "github",
+    "repository":  "RevengeOS/prebuilts_clang_host_linux-x86_clang-11",
+    "target_path": "prebuilts/clang/host/linux-x86/clang-11",
+    "branch":      "r10.0"
+  }
+]
