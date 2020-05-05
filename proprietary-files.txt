@@ -1121,7 +1121,7 @@ vendor/lib64/vendor.qti.imsrtpservice@2.0.so
 vendor/lib64/vendor.qti.imsrtpservice@2.1-service-Impl.so
 vendor/lib64/vendor.qti.imsrtpservice@2.1.so
 vendor/lib64/vendor.qti.latency@2.0.so
-vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0_vendor.so
+vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0.so
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.0.so
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.1.so
 vendor/lib64/vendor.xiaomi.hardware.mtdservice@1.0.so
