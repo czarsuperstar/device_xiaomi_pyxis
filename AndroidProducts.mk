@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/havoc_pyxis.mk
+    $(LOCAL_DIR)/bliss_pyxis.mk
 
 COMMON_LUNCH_CHOICES := \
-    havoc_pyxis-userdebug \
-    havoc_pyxis-user
+    bliss_pyxis-userdebug \
+    bliss_pyxis-user
 
