@@ -25,7 +25,7 @@
 #include <cmath>
 
 #define COMMAND_NIT 10
-#define PARAM_NIT_FOD 1
+#define PARAM_NIT_630_FOD 1
 #define PARAM_NIT_NONE 0
 
 #define DISPPARAM_PATH "/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/disp_param"
@@ -68,6 +68,7 @@ static void set(const std::string& path, const T& value) {
 }
 
 FingerprintInscreen::FingerprintInscreen() {
+    this->mFodCircleVisible = false;
     xiaomiFingerprintService = IXiaomiFingerprint::getService();
 }
 
@@ -92,24 +93,28 @@ Return<void> FingerprintInscreen::onFinishEnroll() {
 }
 
 Return<void> FingerprintInscreen::onPress() {
+    acquire_wake_lock(PARTIAL_WAKE_LOCK, LOG_TAG);
     set(DISPPARAM_PATH, DISPPARAM_HBM_FOD_ON);
-    xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_FOD);
+    xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_630_FOD
     return Void();
 }
 
 Return<void> FingerprintInscreen::onRelease() {
+    release_wake_lock(LOG_TAG);
     set(DISPPARAM_PATH, DISPPARAM_HBM_FOD_OFF);
     xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_NONE);
     return Void();
 }
 
 Return<void> FingerprintInscreen::onShowFODView() {
-    set(FOD_STATUS_PATH, FOD_STATUS_ON);  
+    set(FOD_STATUS_PATH, FOD_STATUS_ON); 
+    this->mFodCircleVisible = true;
     return Void();
 }
 
 Return<void> FingerprintInscreen::onHideFODView() {
     set(FOD_STATUS_PATH, FOD_STATUS_OFF);
+    this->mFodCircleVisible = false;
     return Void();
 }
 
@@ -120,7 +125,7 @@ Return<bool> FingerprintInscreen::handleAcquired(int32_t acquiredInfo, int32_t v
 
 Return<bool> FingerprintInscreen::handleError(int32_t error, int32_t vendorCode) {
     LOG(ERROR) << "error: " << error << ", vendorCode: " << vendorCode << "\n";
-    return false;
+    return error == FOD_ERROR && vendorCode == FOD_ERROR_VENDOR;
 }
 
 Return<void> FingerprintInscreen::setLongPressEnabled(bool) {
