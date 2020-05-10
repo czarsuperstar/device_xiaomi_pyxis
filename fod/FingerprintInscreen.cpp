@@ -28,9 +28,6 @@
 #define PARAM_NIT_630_FOD 1
 #define PARAM_NIT_NONE 0
 
-#define FOD_HBM_ON 1
-#define FOD_HBM_OFF 0
-
 #define DISPPARAM_PATH "/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/disp_param"
 #define DISPPARAM_HBM_FOD_ON "0x20000"
 #define DISPPARAM_HBM_FOD_OFF "0xE0000"
@@ -116,9 +113,8 @@ Return<void> FingerprintInscreen::onShowFODView() {
 }
 
 Return<void> FingerprintInscreen::onHideFODView() {
-    set(FOD_STATUS_PATH, FOD_STATUS_OFF);
-    set(FOD_HBM_PATH, FOD_HBM_OFF);	
-    xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_NONE);
+    set(FOD_STATUS_PATH, FOD_STATUS_OFF); 
+    xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_NONE);    
     this->mFodCircleVisible = false;
     return Void();
 }
