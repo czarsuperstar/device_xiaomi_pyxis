@@ -68,7 +68,6 @@ static void set(const std::string& path, const T& value) {
 }
 
 FingerprintInscreen::FingerprintInscreen() {
-    this->mFodCircleVisible = true;
     xiaomiFingerprintService = IXiaomiFingerprint::getService();
 }
 
@@ -108,7 +107,6 @@ Return<void> FingerprintInscreen::onRelease() {
 
 Return<void> FingerprintInscreen::onShowFODView() {
     set(FOD_STATUS_PATH, FOD_STATUS_ON); 
-    this->mFodCircleVisible = true;
     return Void();
 }
 
@@ -116,7 +114,6 @@ Return<void> FingerprintInscreen::onHideFODView() {
     set(FOD_STATUS_PATH, FOD_STATUS_OFF); 
     set(DISPPARAM_PATH, DISPPARAM_FOD_BACKLIGHT_RESET);
     xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_NONE);    
-    this->mFodCircleVisible = false;
     return Void();
 }
 
@@ -138,10 +135,10 @@ Return<int32_t> FingerprintInscreen::getDimAmount(int32_t /* brightness */) {
     int realBrightness = get(BRIGHTNESS_PATH, 0);
     float alpha;
 
-    if (brightness > 62) {
-        alpha = 1.0 - pow(brightness / 255.0 * 430.0 / 600.0, 0.45);
+   if (realBrightness > 500) {
+        alpha = 1.0 - pow(realBrightness / 2047.0 * 430.0 / 600.0, 0.455);
     } else {
-        alpha = 1.0 - pow(brightness / 150.0, 0.45);
+        alpha = 1.0 - pow(realBrightness / 1680.0, 0.455);
     }
 
     return 255 * alpha;
